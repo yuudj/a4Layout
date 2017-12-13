@@ -10,7 +10,7 @@ import { AppToolbarService, MenuItem } from './app-toolbar/app-toolbar.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit {
-    appName = 'NDVI';
+    appName = 'NG-Shell';
     isDarkTheme = true;
     userName = 'rbrea';
     mainMenuItems;
