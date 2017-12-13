@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('a4-layout App', () => {
+describe('my-app-shell App', () => {
   let page: AppPage;
 
   beforeEach(() => {

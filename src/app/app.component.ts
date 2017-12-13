@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, NavigationEnd } from '@angular/router';
-import { MdSidenav } from '@angular/material';
+import { MatDrawer } from '@angular/material';
 import { AppToolbarService, MenuItem } from './app-toolbar/app-toolbar.service';
 
 @Component({
@@ -10,11 +10,12 @@ import { AppToolbarService, MenuItem } from './app-toolbar/app-toolbar.service';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements AfterViewInit {
-    appName = 'A4 Layout';
+    appName = 'NDVI';
     isDarkTheme = true;
+    userName = 'rbrea';
     mainMenuItems;
     activeMenuItem$: Observable<MenuItem>;
-    @ViewChildren("mainSideNav") sidebar: QueryList<MdSidenav>;
+    @ViewChildren("drawer") drawer: QueryList<MatDrawer>;
 
     constructor(private router: Router, private toolbarService: AppToolbarService) {
         this.mainMenuItems = this.toolbarService.getMenuItems();
@@ -22,8 +23,9 @@ export class AppComponent implements AfterViewInit {
 
         this.router.events
             .subscribe((event) => {
-                if (event instanceof NavigationEnd && this.sidebar) {
-                    this.sidebar.first.close();
+                if (event instanceof NavigationEnd) {
+                    
+                    this.drawer.first.close();
                 }
             });
     }

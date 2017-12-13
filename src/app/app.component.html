@@ -1,57 +1,37 @@
-<div fxLayout="column" fxFlex [class.dark-theme]="isDarkTheme">
-    <!--LARGE TOOLBAR-->
-    <md-toolbar fxHide fxShow.gt-sm color="primary" class="mat-elevation-z4" style="padding-left:0">
-        <div fxLayout="row" fxLayoutAlign="start center" style="height:100%;width:250px;background-color:rgba(0,0,0,0.1);padding-left:16">
-            <button md-icon-button (click)="mainSideNav.toggle()">
-                    <md-icon>menu</md-icon>
-              </button>
-            <img src="../assets/logo.svg" style="height:80%">
-            <span fxLayout="row" fxFlex fxLayoutAlign="center center">
-             {{appName}}
-            </span>
-        </div>
-        <span style="padding-left:16px;">
-                {{(activeMenuItem$ | async)?.title}}
-        </span>
-        <span fxFlex></span>
-        <button md-icon-button [mdMenuTriggerFor]="themeMenu">
-            <md-icon>more_vert</md-icon>
-        </button>
-    </md-toolbar>
-    <!--SMALL TOOLBAR-->
-    <md-toolbar fxHide.gt-sm color="primary" class="mat-elevation-z4" style="padding:0">
-        <div fxLayout="row" fxFlex fxLayoutAlign="start center" style="height:100%;background-color:rgba(0,0,0,0.1)">
-            <button md-icon-button (click)="mainSideNav.toggle()">
-                <md-icon>menu</md-icon>
-            </button>
-            <img src="../assets/logo.svg" style="height:80%">
-            <span fxLayout="row" fxFlex fxLayoutAlign="center center">{{appName}}</span>
-            <button md-icon-button [mdMenuTriggerFor]="themeMenu">
-                <md-icon>more_vert</md-icon>
-            </button>
-        </div>
-    </md-toolbar>
+<mat-drawer-container class="example-container" fxFlex [class.dark-theme]="isDarkTheme">
+    <mat-drawer #drawer class="example-sidenav" mode="over">
+        <mat-nav-list>
+            <a *ngFor="let navItem of mainMenuItems" mat-list-item mat-ripple [style.position]="'relative'" routerLinkActive="selected"
+                [routerLink]="[navItem.path]">
+                <!--<mat-icon *ngIf="navItem.icon">{{navItem.icon}}</mat-icon>-->
+                <span>{{navItem.title}}</span>
+            </a>
+        </mat-nav-list>
 
-    <md-sidenav-container fxFlex>
-        <md-sidenav #mainSideNav mode="over">
-            <md-nav-list>
-                <a *ngFor="let navItem of mainMenuItems" md-list-item md-ripple [style.position]="'relative'" routerLinkActive="selected"
-                    [routerLink]="[navItem.path]">
-                    <!--<md-icon *ngIf="navItem.icon">{{navItem.icon}}</md-icon>-->
-                    <span>{{navItem.title}}</span>
-                </a>
-            </md-nav-list>
-        </md-sidenav>
-        <div fxLayout="column" class="content">
-            <md-toolbar [fxHide.gt-sm]="true" color="primary">
-                    {{(activeMenuItem$ | async)?.title}}
-            </md-toolbar>
-            <div fxFlex>
-                <router-outlet></router-outlet>
+    </mat-drawer>
+
+    <div fxLayout="column" class="content">
+        <mat-toolbar color="primary" class="mat-elevation-z6 app-toolbar">
+            <div fxLayout="row" fxLayoutAlign="start center" class="app-bar" style="width:250px;">
+                <button mat-icon-button (click)="drawer.toggle()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+                <img src="../assets/logo.svg" class="logo">
+                <span fxLayout="row" fxFlex fxLayoutAlign="center center">{{appName}}</span>
             </div>
+            <span style="padding-left:16px;">
+                {{(activeMenuItem$ | async)?.title}}
+            </span>
+            <span fxFlex></span>
+            <button mat-icon-button [matMenuTriggerFor]="themeMenu">
+                <ngu-letter-avatar avatar-data='{{userName}}'></ngu-letter-avatar>
+            </button>
+        </mat-toolbar>
+        <div fxFlex>
+            <router-outlet></router-outlet>
         </div>
-    </md-sidenav-container>
-    <md-menu #themeMenu x-position="before">
-        <button md-menu-item (click)="isDarkTheme = !isDarkTheme">Toggle Theme</button>
-    </md-menu>
-</div>
+        <mat-menu #themeMenu x-position="before">
+            <button mat-menu-item (click)="isDarkTheme = !isDarkTheme">Toggle Theme</button>
+        </mat-menu>
+    </div>
+</mat-drawer-container>

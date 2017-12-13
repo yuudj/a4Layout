@@ -1,29 +1,30 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { FlexLayoutModule } from "@angular/flex-layout";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AppCommonModule } from './app-common/app-common.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppToolbarService } from './app-toolbar/app-toolbar.service';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { AboutComponent } from './about/about.component';
+import { RouterModule } from '@angular/router';
+import { AppAboutComponent } from './app-about/app-about.component';
+import { AppHomeComponent } from './app-home/app-home.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    AboutComponent
+    AppAboutComponent,
+    AppHomeComponent
   ],
   imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    FlexLayoutModule,
     BrowserAnimationsModule,
     AppCommonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    RouterModule
   ],
   providers: [AppToolbarService],
   bootstrap: [AppComponent]
