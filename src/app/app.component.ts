@@ -1,36 +1,41 @@
-import { Component, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Router, NavigationEnd } from '@angular/router';
-import { MatDrawer } from '@angular/material';
-import { AppToolbarService, MenuItem } from './app-toolbar/app-toolbar.service';
+import { 
+  Component, 
+  ChangeDetectorRef, 
+  EventEmitter, 
+  Output } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { MatSidenav } from '@angular/material';
 
 @Component({
-    selector: 'body',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements AfterViewInit {
-    appName = 'NG-Shell';
-    isDarkTheme = true;
-    userName = 'rbrea';
-    mainMenuItems;
-    activeMenuItem$: Observable<MenuItem>;
-    @ViewChildren("drawer") drawer: QueryList<MatDrawer>;
-
-    constructor(private router: Router, private toolbarService: AppToolbarService) {
-        this.mainMenuItems = this.toolbarService.getMenuItems();
-        this.activeMenuItem$ = this.toolbarService.activeMenuItem$;
-
-        this.router.events
-            .subscribe((event) => {
-                if (event instanceof NavigationEnd) {
-                    
-                    this.drawer.first.close();
-                }
-            });
+export class AppComponent {
+  title = 'Material PWA';
+  mobileQuery: MediaQueryList;
+  nav = [
+    {
+      'title': 'Home',
+      'path': '/'
+    },
+    {
+      'title': 'My Account (Part 2)',
+      'path': '/auth'
     }
-
-    ngAfterViewInit() {
-
+  ];
+  private _mobileQueryListener: () => void;
+  @Output() toggleSideNav = new EventEmitter();
+  
+  constructor( changeDetectorRef: ChangeDetectorRef, media: MediaMatcher ) {
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+  }
+  
+  toggleMobileNav(nav: MatSidenav) {
+    if (this.mobileQuery.matches) {
+      nav.toggle();
     }
+  }
 }

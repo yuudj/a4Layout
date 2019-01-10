@@ -1,32 +1,30 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FlexLayoutModule } from "@angular/flex-layout";
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { AppCommonModule } from './app-common/app-common.module';
+import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppToolbarService } from './app-toolbar/app-toolbar.service';
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
-import { AppAboutComponent } from './app-about/app-about.component';
-import { AppHomeComponent } from './app-home/app-home.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MaterialModule } from './material/material.module';
+import { HomeComponent } from './home/home.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AppAboutComponent,
-    AppHomeComponent
+    HomeComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    FlexLayoutModule,
-    BrowserAnimationsModule,
-    AppCommonModule,
+    BrowserModule,
     AppRoutingModule,
-    RouterModule
+    BrowserAnimationsModule,
+
+    MaterialModule,
+
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [AppToolbarService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
