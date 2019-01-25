@@ -19,15 +19,12 @@ To debug the client side Angular code, we'll need to install the [Debugger for C
 
 Open the Extensions view (`kb(workbench.view.extensions)`) and type 'chrome` in the search box. You'll see several extensions which reference Chrome.
 
-![debugger for chrome](images/reactjs/debugger-for-chrome.png)
-
 Press the **Install** button for **Debugger for Chrome**. The button will change to **Installing** then, after completing the installation, it will change to **Reload**. Press **Reload** to restart VS Code and activate the extension.
 
 ### Set a breakpoint
 
 To set a breakpoint in `app.component.ts`, click on the gutter to the left of the line numbers. This will set a breakpoint which will be visible as a red circle.
 
-![set a breakpoint](images/angular/breakpoint.png)
 
 ### Configure the Chrome debugger
 
@@ -60,9 +57,6 @@ You can step through your source code (`kb(workbench.action.debug.stepOver)`), i
 
 The **Debugger for Chrome** extension README has lots of information on other configurations, working with sourcemaps, and troubleshooting. You can review it directly within VS Code from the **Extensions** view by clicking on the extension item and opening the **Details** view.
 
-
-
-https://code.visualstudio.com/docs/nodejs/angular-tutorial
 
 ## Code scaffolding
 
