@@ -1,12 +1,12 @@
-import { 
-  Component, 
-  ChangeDetectorRef, 
-  EventEmitter, 
-  Output, 
+import {
+  Component,
+  ChangeDetectorRef,
+  EventEmitter,
+  Output,
   OnInit} from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material';
-import { Router, Route } from "@angular/router";
+import { Router, Route } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -20,18 +20,15 @@ export class AppComponent  implements OnInit  {
     {
       'title': 'Home',
       'path': '/',
-      
     }
   ];
   private _mobileQueryListener: () => void;
   @Output() toggleSideNav = new EventEmitter();
-  
   constructor(private router: Router, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
-  
   toggleMobileNav(nav: MatSidenav) {
     if (this.mobileQuery.matches) {
       nav.toggle();
@@ -42,8 +39,8 @@ export class AppComponent  implements OnInit  {
   }
   printpath(parent: String, config: Route[]) {
     for (let i = 0; i < config.length; i++) {
-      let route = config[i];
-      console.log(route.data.info ? route.data.info: 'naranja');
+      const route = config[i];
+      console.log(route.data.info ? route.data.info : 'naranja');
       if (route.children) {
         const currentPath = route.path ? parent + '/' + route.path : parent;
         this.printpath(currentPath, route.children);
