@@ -8,26 +8,23 @@ import { from } from 'rxjs/internal/observable/from';
     selector: 'nkm-navigator',
     templateUrl    : './navigation.component.html',
     styleUrls      : ['./navigation.component.scss'],
-    //encapsulation  : ViewEncapsulation.None,
-    //changeDetection: ChangeDetectionStrategy.OnPush
+    // encapsulation  : ViewEncapsulation.None,
+    // changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class NavigationComponent implements OnInit {
-    menu:any;
+    menu: any;
+    fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
+    constructor(private router: Router ) { }
 
-    constructor(private router: Router ) { 
-      
-    }
-
-    ngOnInit() { 
+    ngOnInit() {
         const source = from(this.router.config);
 
-        this.menu =source.pipe(
+        this.menu = source.pipe(
             groupBy(person => person.data.group),
             // return each item in group as array
             mergeMap(group => group.pipe(toArray()))
           );
-        
     }
 
     printpath(parent: String, config: Route[]) {

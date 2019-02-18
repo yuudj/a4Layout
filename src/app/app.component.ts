@@ -15,12 +15,9 @@ import { MatSidenav } from '@angular/material';
 export class AppComponent  implements OnInit, OnDestroy  {
   title = 'Material PWA';
   mobileQuery: MediaQueryList;
-  fillerNav = Array.from({length: 50}, (_, i) => `Nav Item ${i + 1}`);
 
-  
- 
   private _mobileQueryListener: (event) => void;
-  //@Output() toggleSideNav = new EventEmitter();
+  // @Output() toggleSideNav = new EventEmitter();
 
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -28,7 +25,7 @@ export class AppComponent  implements OnInit, OnDestroy  {
 
       changeDetectorRef.detectChanges();
       console.log(event.matches ? 'match' : 'no match');
-    }
+    };
     this.mobileQuery.addListener(this._mobileQueryListener);
   }
 
@@ -38,13 +35,9 @@ export class AppComponent  implements OnInit, OnDestroy  {
     }
   }
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
+
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
- 
-
-  
 }
